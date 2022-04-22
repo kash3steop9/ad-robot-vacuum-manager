@@ -86,6 +86,9 @@ class RobotVacuumManager(hass.Hass):
             )
 
     def receive_state_change(self, entity, attribute, old, new, kwargs):
+        if entity == self.bin_entity:
+            if old == "off" and new == "on":
+                self._send_message("You need to empty the bin")
         if entity == self.entity:
             self.log(f"recived new state for {entity}: {new}")
             if self._vacuum_state == VacuumState.waiting_dock:
