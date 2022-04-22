@@ -101,7 +101,7 @@ class RobotVacuumManager(hass.Hass):
                     if self._timeout_handle:
                         self.cancel_timer(self._timeout_handle)
                         self._timeout_handle = None
-                elif new == "returning_to_dock":
+                elif new == "returning":
                     pass
                 else:
                     self.log(
