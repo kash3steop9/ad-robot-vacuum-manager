@@ -75,14 +75,15 @@ class RobotVacuumManager(hass.Hass):
         self._timeout_handle = self.run_in(self._timeout_state_change, 60)
         self._vacuum_state = VacuumState.waiting_start
         # if robot isnt dock, we got a problem
-        if self.get_state(self.entity) == "docked":
+        state = self.get_state(self.entity)
+        if state == "docked":
             self.call_service(
                 "vacuum/start",
                 entity_id=self.entity,
             )
         else:
             self.log(
-                f"Vacuum could not be scheduled because state is '{new}' instead of 'docked'"
+                f"Vacuum could not be scheduled because state is '{state}' instead of 'docked'"
             )
 
     def receive_state_change(self, entity, attribute, old, new, kwargs):
@@ -93,7 +94,7 @@ class RobotVacuumManager(hass.Hass):
             self.log(f"recived new state for {entity}: {new}")
             if self._vacuum_state == VacuumState.waiting_dock:
                 if new == "docked":
-                    self._send_message(f"Returned to dock")
+                    self._send_message("Returned to dock")
                     self._vacuum_state = VacuumState.none
                     if self._timeout_handle:
                         self.cancel_timer(self._timeout_handle)
