@@ -135,7 +135,7 @@ class RobotVacuumManager(hass.Hass):
             self._activation_handle = None
 
         if command == "/vacuum":
-            if self.get_state(self.alarm) != "cleaning":
+            if self.get_state(self.entity) != "cleaning":
                 if self._timeout_handle:
                     self.cancel_timer(self._timeout_handle)
                 self._timeout_handle = self.run_in(self._timeout_state_change, 60)
@@ -146,7 +146,7 @@ class RobotVacuumManager(hass.Hass):
                 )
 
         elif command == "/vacuumDock":
-            if self.get_state(self.alarm) != "docked":
+            if self.get_state(self.entity) != "docked":
                 self._cancel_timers()
                 self._timeout_handle = self.run_in(self._timeout_state_change, 60)
                 self._vacuum_state = VacuumState.waiting_dock
