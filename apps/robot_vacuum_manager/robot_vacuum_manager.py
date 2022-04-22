@@ -102,6 +102,7 @@ class RobotVacuumManager(hass.Hass):
                         self.cancel_timer(self._timeout_handle)
                         self._timeout_handle = None
                 elif new == "returning":
+                    self._send_message("Returning to home base")
                     pass
                 else:
                     self.log(
