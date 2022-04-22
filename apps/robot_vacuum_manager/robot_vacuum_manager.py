@@ -110,7 +110,7 @@ class RobotVacuumManager(hass.Hass):
 
             elif self._vacuum_state == VacuumState.waiting_start:
                 if new == "cleaning":
-                    self._send_message("Sweepin' the floors")
+                    self._send_message("Sweepin' the floors /vacuumHome")
                     self._vacuum_state = VacuumState.none
                     if self._timeout_handle:
                         self.cancel_timer(self._timeout_handle)
