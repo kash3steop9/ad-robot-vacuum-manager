@@ -1,6 +1,6 @@
 import appdaemon.plugins.hass.hassapi as hass
 
-VALID_COMMANDS = frozenset(["/vacuumHome", "/vacuumLocate", "/vacuum"])
+VALID_COMMANDS = frozenset(["/vacuumDock", "/vacuumLocate", "/vacuum"])
 
 
 class VacuumState(object):
