@@ -103,7 +103,10 @@ class RobotVacuumManager(hass.Hass):
                         self._timeout_handle = None
                 elif new == "returning":
                     self._send_message("Returning to home base")
-                    pass
+                    if self._timeout_handle:
+                        self.cancel_timer(self._timeout_handle)
+                        # give it 3 minutes to get there
+                        self._timeout_handle = self.run_in(self._timeout_state_change, 180)
                 else:
                     self.log(
                         f"received unexpected vacuum state change to {new} while waiting_dock"
