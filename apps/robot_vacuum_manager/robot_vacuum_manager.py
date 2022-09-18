@@ -90,10 +90,10 @@ class RobotVacuumManager(hass.Hass):
         self.log(f"recived new state for {entity}: {new}")
         if entity == self.bin_entity:
             if old == "off" and new == "on":
-                self._send_message("You need to empty the bin")
+                self._send_message("My bin is full, making a pit stop.")
         if entity == self.entity:
             if new == "error":
-                self._send_message("I had an accident, please check on me")
+                self._send_message("I had an accident, please check on me.")
             elif self._vacuum_state == VacuumState.waiting_dock:
                 if new == "docked":
                     self._send_message("I have docked")
