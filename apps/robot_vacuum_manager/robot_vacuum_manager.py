@@ -127,7 +127,7 @@ class RobotVacuumManager(hass.Hass):
     def receive_telegram_command(self, event_id, payload_event, *args):
         assert event_id == "telegram_command"
 
-        command = payload_event["command"]
+        command = payload_event["command"].split('@', 1)[0]
 
         if command not in VALID_COMMANDS:
             return
